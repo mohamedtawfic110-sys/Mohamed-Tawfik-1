@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.github.com https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <script>(function(){var B=location.href.replace(/[?#].*$/,'').replace(/[^\/]*$/,'');function f(n){if(n.nodeType===1){var u=n.getAttribute('data-url');if(u&&u.indexOf('__B__')>-1)n.setAttribute('data-url',u.replace('__B__',B));for(var c=n.firstChild;c;c=c.nextSibling)f(c)}else if(n.nodeType===3&&n.nodeValue.indexOf('__B__')>-1)n.nodeValue=n.nodeValue.replace('__B__',B)}new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(f)})}).observe(document.documentElement,{childList:true,subtree:true});})();</script>
 <script>(function(){
 var L='ar';try{if(localStorage.getItem('mt-lang')==='en')L='en'}catch(e){}
@@ -850,18 +852,68 @@ html body{background:radial-gradient(900px 420px at 100% -5%,rgba(201,162,74,.18
 })();
 </script>
 <!-- /MT CHAT -->
+<!-- MT DOB -->
+<style>
+.dob{display:flex;flex-direction:column;gap:6px}
+.dob-row{display:grid;grid-template-columns:1fr 1.4fr 1.2fr;gap:8px}
+.dob-row select{font:inherit;font-size:15px;padding:10px 8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);min-width:0;width:100%}
+.dob-lbl{font-family:var(--display);font-weight:600;font-size:14px}
+.dob-note{font-size:12.5px;color:var(--muted)}
+</style>
+<script>
+(function(){
+  var KEY='mt-dob';
+  function en(){var p=document.getElementById('page');return window.MT_LANG==='en'||(p&&/is-en/.test(p.className))}
+  function T(a,e){return en()?e:a}
+  function bi(a,e){return document.getElementById('page')&&!window.MT_LANG?'<span class="l-ar">'+a+'</span><span class="l-en">'+e+'</span>':T(a,e)}
+  var MA=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],ME=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function saved(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
+  function save(v){try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}}
+  function current(){var s=document.querySelector('.dob');if(!s)return null;var d=s.querySelector('[data-dob=d]').value,m=s.querySelector('[data-dob=m]').value,y=s.querySelector('[data-dob=y]').value;return d&&m&&y?{d:+d,m:+m,y:+y}:null}
+  function txt(v){return ('0'+v.d).slice(-2)+'/'+('0'+v.m).slice(-2)+'/'+v.y}
+  function build(){
+    var sv=saved(),Y=new Date().getFullYear(),i,h;
+    var d='<option value="">'+T('اليوم','Day')+'</option>';for(i=1;i<=31;i++)d+='<option value="'+i+'">'+i+'</option>';
+    var m='<option value="">'+T('الشهر','Month')+'</option>';for(i=1;i<=12;i++)m+='<option value="'+i+'" data-ar="'+MA[i-1]+'" data-en="'+ME[i-1]+'">'+T(MA[i-1],ME[i-1])+'</option>';
+    var y='<option value="">'+T('السنة','Year')+'</option>';for(i=Y-14;i>=Y-75;i--)y+='<option value="'+i+'">'+i+'</option>';
+    h='<span class="dob-lbl">'+bi('تاريخ الميلاد','Date of birth')+'</span><div class="dob-row"><select data-dob="d" aria-label="'+T('يوم الميلاد','Birth day')+'">'+d+'</select><select data-dob="m" aria-label="'+T('شهر الميلاد','Birth month')+'">'+m+'</select><select data-dob="y" aria-label="'+T('سنة الميلاد','Birth year')+'">'+y+'</select></div><span class="dob-note">'+bi('اختياري، عشان نبعتلك تهنئة في عيد ميلادك','Optional, so we can send you birthday wishes')+'</span>';
+    var targets=[].slice.call(document.querySelectorAll('input[type=tel]')).filter(function(x){return !x.closest('.mtc-panel')&&!x.closest('#po-form')});
+    var fn=document.querySelector('#f-name');if(!targets.length&&fn&&document.querySelector('#f-text'))targets=[fn];
+    targets.forEach(function(inp){
+      var host=inp.closest('.field')||inp.parentNode;if(host.parentNode.querySelector('.dob'))return;
+      var w=document.createElement('div');w.className='field dob';w.innerHTML=h;host.insertAdjacentElement('afterend',w);
+      if(sv){w.querySelector('[data-dob=d]').value=sv.d;w.querySelector('[data-dob=m]').value=sv.m;w.querySelector('[data-dob=y]').value=sv.y}
+      w.addEventListener('change',function(){var v={d:+w.querySelector('[data-dob=d]').value,m:+w.querySelector('[data-dob=m]').value,y:+w.querySelector('[data-dob=y]').value};if(v.d&&v.m&&v.y){save(v);document.querySelectorAll('.dob').forEach(function(o){if(o!==w){o.querySelector('[data-dob=d]').value=v.d;o.querySelector('[data-dob=m]').value=v.m;o.querySelector('[data-dob=y]').value=v.y}})}});
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href*="wa.me/201158026002?text="]');if(!a)return;
+    if(!(a.classList.contains('send-wa')||a.id==='send'||a.id==='send-result'))return;
+    var v=current()||saved();if(!v)return;
+    var parts=a.href.split('?text='),t='';try{t=decodeURIComponent(parts[1]||'')}catch(_){return}
+    if(/(تاريخ الميلاد|Date of birth):/.test(t))return;
+    t+='\n'+T('تاريخ الميلاد','Date of birth')+': '+txt(v);
+    a.href=parts[0]+'?text='+encodeURIComponent(t);
+  },true);
+})();
+</script>
+<!-- /MT DOB -->
 <script>(function(){
+var SHEET="",KEY="r2-vkA6DL_ssErMc";
 var P=location.pathname.split('/').pop()||'index.html';
 function kind(a){if(/^exam-/.test(P))return 'exam-results';if(/^(payroll|excel|metrics)\.html$/.test(P))return 'game-results';if(P==='feedback.html')return 'feedback';
  var f=a.closest('form');if(f){if(f.id==='reg-form')return 'registration';if(f.id==='consult-form')return 'consulting';if(f.id==='po-form')return 'payroll-outsourcing'}return null}
-var MAP=[[/^(الاسم|اسم المتدرب|اسمك|Name|Full name|Your name)/i,'name'],[/(موبايل|Mobile|Phone)/i,'phone'],[/(إيميل|الإيميل|Email)/i,'email'],[/(طريقة الحضور|Attendance)/i,'attendance'],[/(التدريب المطلوب|الدورة|الكورس|Training|Course)/i,'course'],[/(الشركة|Company)/i,'company'],[/(الوظيفة|Job)/i,'job'],[/(الكود|Code)/i,'code'],[/(النتيجة|الدرجة|النقط|Result|Score|Points)/i,'score'],[/(التقييم|Rating)/i,'rating']];
+var MAP=[[/^(الاسم|اسم المتدرب|اسمك|Name|Full name|Your name)/i,'name'],[/(موبايل|Mobile|Phone)/i,'phone'],[/(إيميل|الإيميل|Email)/i,'email'],[/(تاريخ الميلاد|Date of birth)/i,'dob'],[/(طريقة الحضور|Attendance)/i,'attendance'],[/(التدريب المطلوب|الدورة|الكورس|Training|Course)/i,'course'],[/(الشركة|Company)/i,'company'],[/(الوظيفة|Job)/i,'job'],[/(الكود|Code)/i,'code'],[/(النتيجة|الدرجة|النقط|Result|Score|Points)/i,'score'],[/(التقييم|Rating)/i,'rating']];
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href*="wa.me/201158026002?text="]');if(!a)return;
  if(!(a.classList.contains('send-wa')||a.id==='send'||a.id==='send-result'))return;var k=kind(a);if(!k)return;
  var txt='';try{txt=decodeURIComponent(a.href.split('?text=')[1]||'')}catch(_){}
  var L='ar';try{L=localStorage.getItem('mt-lang')||'ar'}catch(_){}
- var d={'form-name':k,page:P,lang:L,date:new Date().toLocaleString('en-GB'),message:txt};
+ var d={k:KEY,'form-name':k,page:P,lang:L,date:new Date().toLocaleString('en-GB'),message:txt};
  txt.split('\n').forEach(function(l){var i=l.indexOf(': ');if(i<1)return;var key=l.slice(0,i),v=l.slice(i+2).trim();for(var j=0;j<MAP.length;j++){if(MAP[j][0].test(key)){if(!d[MAP[j][1]])d[MAP[j][1]]=v;break}}});
- try{fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString(),keepalive:true})}catch(_){}
+ var body=new URLSearchParams(d).toString();
+ if(SHEET){try{fetch(SHEET,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body,keepalive:true})}catch(_){}}
+ if(/netlify\.app$/.test(location.hostname)){try{fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body,keepalive:true})}catch(_){}}
 },true);
 })();</script>
 </body>
