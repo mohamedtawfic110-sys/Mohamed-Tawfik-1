@@ -206,7 +206,7 @@ try{navigator.clipboard.writeText(u).then(function(){done(_t('اتنسخ ✓'))}
   function fromJson(){fetch('groups.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():[]}).then(function(d){if(Array.isArray(d)&&d.length){items=d.map(function(x){return {src:x.photo,title:x.title||cap(x.photo.split('/').pop())}});render()}else render()}).catch(render)}
   if(/github\.io$/.test(location.hostname)){
     fetch('https://api.github.com/repos/'+REPO+'/contents/'+DIR).then(function(r){return r.ok?r.json():null}).then(function(d){
-      if(Array.isArray(d)){items=d.filter(function(f){return /\.(jpe?g|png|webp|gif)$/i.test(f.name)}).map(function(f){return {src:DIR+'/'+encodeURIComponent(f.name),title:cap(f.name)}});render()}else fromJson();
+      if(Array.isArray(d)){items=d.filter(function(f){return /\.(jpe?g|png|webp|gif)$/i.test(f.name)}).map(function(f){return {src:DIR+'/'+encodeURIComponent(f.name)+'?v='+String(f.sha||'').slice(0,8),title:cap(f.name)}});render()}else fromJson();
     }).catch(fromJson);
   } else fromJson();
 })();
