@@ -246,7 +246,7 @@ button.btn:disabled{opacity:.6}
 .socials li:nth-child(4) .badge{background:#1877F2}
 @media (min-width:900px){.socials{grid-template-columns:repeat(4,minmax(0,1fr))}}
 :root{color-scheme:light}
-.fb-side{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:45;writing-mode:vertical-rl;background:var(--gold-dot,#C9A24A);color:#14213F;text-decoration:none;font:700 12px/1 var(--display,system-ui);letter-spacing:.3px;padding:12px 7px;border-radius:12px 0 0 12px;box-shadow:0 4px 14px rgba(15,27,51,.18);padding-right:calc(7px + env(safe-area-inset-right,0px))}
+.fb-side{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:45;writing-mode:vertical-rl;background:var(--gold-dot,#C9A24A);color:#14213F;text-decoration:none;font:800 15px/1 var(--display,system-ui);letter-spacing:.3px;padding:18px 11px;border-radius:12px 0 0 12px;box-shadow:0 4px 14px rgba(15,27,51,.18);padding-right:calc(11px + env(safe-area-inset-right,0px))}
 .fb-side:hover{padding-left:12px}
 .fb-side .l-en{display:none}.fb-side.en .l-ar{display:none}.fb-side.en .l-en{display:inline}
 </style>
@@ -311,11 +311,11 @@ function go(){var h=(location.hash||'').slice(1);if(/-en$/.test(h)&&m[h.slice(0,
       <div class="about-top">
         <img class="about-img" src="img/mohamed-2.jpg" alt="محمد توفيق" width="150" height="200" loading="lazy">
         <div class="about-tx">
-          <p><span class="l-ar">شغال في المرتبات وشؤون العاملين من 2019، وبيدير مرتبات شركات لحد 1,500 موظف. متخصص في قانون العمل والتأمينات وتحليل بيانات الـ HR بالإكسيل وPower BI، ومدرّب TOT درّب أكتر من 500 متدرب.</span><span class="l-en">Payroll and personnel lead since 2019, running full-cycle payroll for workforces of up to 1,500 employees. Specialist in Egyptian Labor Law, social insurance and HR analytics with Excel and Power BI, and a certified TOT trainer who has trained 500+ people.</span></p>
+          <p><span class="l-ar">شغال في المرتبات وشؤون العاملين من 2019، وبيدير مرتبات شركات لحد 1,500 موظف. متخصص في قانون العمل والتأمينات وتحليل بيانات الـ HR بالإكسيل وPower BI، ومدرّب TOT درّب أكتر من 1,000 متدرب.</span><span class="l-en">Payroll and personnel lead since 2019, running full-cycle payroll for workforces of up to 1,500 employees. Specialist in Egyptian Labor Law, social insurance and HR analytics with Excel and Power BI, and a certified TOT trainer who has trained 1,000+ people.</span></p>
           <div class="stats">
             <div><b class="num">2019</b><span><span class="l-ar">بدأت في المرتبات</span><span class="l-en">In payroll since</span></span></div>
             <div><b class="num">1,500+</b><span><span class="l-ar">موظف في كشف واحد</span><span class="l-en">employees on one payroll</span></span></div>
-            <div><b class="num">500+</b><span><span class="l-ar">متدرب درّبتهم</span><span class="l-en">people trained</span></span></div>
+            <div><b class="num">1,000+</b><span><span class="l-ar">متدرب درّبتهم</span><span class="l-en">people trained</span></span></div>
           </div>
         </div>
       </div>
@@ -805,6 +805,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener
  .langbar{gap:8px!important}
  .jump{grid-template-columns:1fr!important}
 }
+/* Soft brand background */
+html{background:#F1F4F9}
+html body{background:radial-gradient(900px 420px at 100% -5%,rgba(201,162,74,.18),transparent 62%),radial-gradient(760px 520px at -12% 38%,rgba(27,46,87,.10),transparent 62%),radial-gradient(700px 400px at 110% 95%,rgba(27,46,87,.08),transparent 60%),radial-gradient(rgba(27,46,87,.075) 1px,transparent 1.3px) 0 0/22px 22px,#F1F4F9!important;background-attachment:fixed!important}
+.tabbar{background:rgba(241,244,249,.88)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 </style>
 <button class="mtc-fab" type="button" id="mtc-open" aria-haspopup="dialog" aria-controls="mtc-panel"><span class="dot" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>محتاج مساعدة؟</button>
 <div class="mtc-panel" id="mtc-panel" role="dialog" aria-label="خدمة العملاء" dir="rtl" hidden>
