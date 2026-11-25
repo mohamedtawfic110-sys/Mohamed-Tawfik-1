@@ -1,0 +1,16 @@
+[
+ {
+  "id": "payroll",
+  "name_ar": "دورة المرتبات",
+  "name_en": "Practical Payroll Course",
+  "round": "1",
+  "price": "2000",
+  "old": "2500",
+  "start": "",
+  "sessions": "",
+  "mode": "",
+  "topics_ar": "مكونات المرتب والبدلات والحوافز\nحساب التأمينات وضريبة كسب العمل\nتطبيق عملي: كشف مرتبات كامل على الإكسيل\nشهادة حضور في آخر الدورة",
+  "topics_en": "Salary components, allowances and incentives\nCalculating social insurance and payroll tax\nHands-on: a full payroll sheet in Excel\nCertificate of attendance",
+  "kind": "course"
+ }
+]
